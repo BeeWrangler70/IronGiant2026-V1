@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *   <li>Drive and strafe movements</li>
  * </ul>
  */
-@Autonomous(name = "Autonomous 1", group = "Autonomous")
+@Autonomous(name = "Autonomous 1", group = "Autonomous",preselectTeleOp = "Robot Centric")
 public class AutonomousOpModeBronsonBasic extends OpMode {
 
     private HardwareAndFunctions robot;

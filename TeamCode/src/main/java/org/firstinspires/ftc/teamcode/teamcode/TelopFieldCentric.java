@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 /**
  * Main Field-Centric TeleOp OpMode extending TeleOp.
  * Inherits all operator controls, subsystems, and telemetry from TeleOp,
  * and overrides drive execution for Field-Centric driving.
  */
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Field Centric", group = "Iterative Opmode")
 public class TelopFieldCentric extends TeleOp {
 
