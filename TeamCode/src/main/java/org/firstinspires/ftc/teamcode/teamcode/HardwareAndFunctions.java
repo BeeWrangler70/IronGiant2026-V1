@@ -37,19 +37,19 @@ public class HardwareAndFunctions {
     private final boolean INVERT_STRAFE_ODOMETRY = false;       //  When strafing to the LEFT, the odometry value MUST increase.  If it does not, flip the value of this constant.
     public final double DRIVE_GAIN          = .06;    // Strength of axial position control
     public final double DRIVE_ACCEL         = 10;     // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
-    public final double DRIVE_TOLERANCE     = .5;     // Controller is is "inPosition" if position error is < +/- this amount
+    public final double DRIVE_TOLERANCE     = .5;     // Controller is "inPosition" if position error is < +/- this amount
     public final double DRIVE_DEADBAND      = 0.4;     // Error less than this causes zero output.  Must be smaller than DRIVE_TOLERANCE
     public final double DRIVE_MAX_AUTO      = 1;     // "default" Maximum Axial power limit during autonomous
 
     public final double STRAFE_GAIN		 = 0.06;	// Strength of lateral position control
     public final double STRAFE_ACCEL		= 10;	 // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
-    public final double STRAFE_TOLERANCE	= .5;	 // Controller is is "inPosition" if position error is < +/- this amount
+    public final double STRAFE_TOLERANCE	= .5;	 // Controller is "inPosition" if position error is < +/- this amount
     public final double STRAFE_DEADBAND	 = 0.2;	 // Error less than this causes zero output.  Must be smaller than DRIVE_TOLERANCE
     public final double STRAFE_MAX_AUTO	 = .6;	 // "default" Maximum Lateral power limit during autonomous
 
     private final  double YAW_GAIN            = 0.018;    // Strength of Yaw position control
     private final  double YAW_ACCEL           = 6.0;     // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
-    private final  double YAW_TOLERANCE       = .25;     // Controller is is "inPosition" if position error is < +/- this amount
+    private final  double YAW_TOLERANCE       = .25;     // Controller is "inPosition" if position error is < +/- this amount
     private final  double YAW_DEADBAND        = 0.25;    // Error less than this causes zero output.  Must be smaller than DRIVE_TOLERANCE
     private final  double YAW_MAX_AUTO        = 1.0;     // "default" Maximum Yaw power limit during autonomous
 
@@ -77,7 +77,7 @@ public class HardwareAndFunctions {
 
     private OpMode myOpMode;
     private LinearOpMode linearOpMode;
-    private boolean isLinear = false;
+    private boolean isLinear;
     public IMU imu;
 
     GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
@@ -186,7 +186,7 @@ public class HardwareAndFunctions {
     }
 
     /**
-     *   Setup a drive motor with passed parameters.  Ensure encoder is reset.
+     *  Set up a drive motor with passed parameters.  Ensure encoder is reset.
      * @param deviceName  Text name associated with motor in Robot Configuration
      * @param direction   Desired direction to make the wheel run FORWARD with positive power input
      * @return the DcMotor object
@@ -634,8 +634,8 @@ public class HardwareAndFunctions {
 //        myOpMode.telemetry.addData("Odo X, Y (in)", "X: %.2f | Y: %.2f", driveDistance, strafeDistance);
 //        myOpMode.telemetry.addData("Heading", "%.1f deg", heading);
 
-        myOpMode.telemetry.addData("Position (X, Y)", "%.2f, %.2f", driveDistance, strafeDistance);
-        myOpMode.telemetry.addData("Heading", "%.1f", heading);
+//        myOpMode.telemetry.addData("Position (X, Y)", "%.2f, %.2f", driveDistance, strafeDistance);
+//        myOpMode.telemetry.addData("Heading", "%.1f", heading);
 
 //        myOpMode.telemetry.addData("--- Driver (Gamepad 1) ---", "");
 
@@ -643,9 +643,9 @@ public class HardwareAndFunctions {
 //        myOpMode.telemetry.addData("Launcher Status", launcherSubsystem.launcherTargetVelocity > 0 ? "RUNNING" : "STOPPED");
 //        myOpMode.telemetry.addData("Feeder Status", launcherSubsystem.isFeederActive() ? "RUNNING" : "STOPPED");
 //        myOpMode.telemetry.addData("Intake Status", intakeSubsystem.isIntakeActive() ? "RUNNING" : "STOPPED");
-        myOpMode.telemetry.addData("Target Velocity", "%.0f Ticks/Sec", launcherSubsystem.launcherTargetVelocity);
+//        myOpMode.telemetry.addData("Target Velocity", "%.0f Ticks/Sec", launcherSubsystem.launcherTargetVelocity);
         myOpMode.telemetry.addData("Current Velocity", "%.0f Ticks/Sec", launcherSubsystem.getVelocity());
-        myOpMode.telemetry.addData("Battery Voltage", "%.2f V", getBatteryVoltage());
+//        myOpMode.telemetry.addData("Battery Voltage", "%.2f V", getBatteryVoltage());
 
 //        myOpMode.telemetry.addData("Left Sweeper", intakeSubsystem.leftSweeper != null ? intakeSubsystem.leftSweeper.getPower() : "NULL");
 //        myOpMode.telemetry.addData("Right Sweeper", intakeSubsystem.rightSweeper != null ? intakeSubsystem.rightSweeper.getPower() : "NULL");
@@ -734,8 +734,8 @@ class ProportionalControl {
     /**
      * Saves a new setpoint and resets the output power history.
      * This call allows a temporary power limit to be set to override the default.
-     * @param setPoint
-     * @param powerLimit
+     * @param setPoint current set point
+     * @param powerLimit current power limit
      */
     public void reset(double setPoint, double powerLimit) {
         liveOutputLimit = Math.abs(powerLimit);
@@ -745,7 +745,7 @@ class ProportionalControl {
 
     /**
      * Saves a new setpoint and resets the output power history.
-     * @param setPoint
+     * @param setPoint current set point
      */
     public void reset(double setPoint) {
         liveOutputLimit = defaultOutputLimit;
