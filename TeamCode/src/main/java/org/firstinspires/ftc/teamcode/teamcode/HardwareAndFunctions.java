@@ -630,14 +630,10 @@ public class HardwareAndFunctions {
             myOpMode.telemetry.addData("Balls Shot", "%d / 4", ballsShot);
         }
 
-//        myOpMode.telemetry.addData("--- Odometry Position ---", "");
-//        myOpMode.telemetry.addData("Odo X, Y (in)", "X: %.2f | Y: %.2f", driveDistance, strafeDistance);
-//        myOpMode.telemetry.addData("Heading", "%.1f deg", heading);
+        myOpMode.telemetry.addData("--- Odometry Position ---", "");
+        myOpMode.telemetry.addData("Odo X, Y (in)", "X: %.2f | Y: %.2f", driveDistance, strafeDistance);
+        myOpMode.telemetry.addData("Heading", "%.1f deg", heading);
 
-//        myOpMode.telemetry.addData("Position (X, Y)", "%.2f, %.2f", driveDistance, strafeDistance);
-//        myOpMode.telemetry.addData("Heading", "%.1f", heading);
-
-//        myOpMode.telemetry.addData("--- Driver (Gamepad 1) ---", "");
 
         myOpMode.telemetry.addData("--- Operator (Gamepad 2) ---", "");
 //        myOpMode.telemetry.addData("Launcher Status", launcherSubsystem.launcherTargetVelocity > 0 ? "RUNNING" : "STOPPED");
