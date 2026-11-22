@@ -4,6 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.teamcode.HardwareAndFunctions;
+import org.firstinspires.ftc.teamcode.teamcode.Launcher;
+
 /**
  * Autonomous OpMode (Iterative OpMode) using a non-blocking state machine
  * and HardwareAndFunctions / Proportional Controllers for precise movement.
@@ -16,8 +19,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *   <li>Drive and strafe movements</li>
  * </ul>
  */
-@Autonomous(name = "Autonomous 1", group = "Autonomous",preselectTeleOp = "Robot Centric")
-public class AutonomousOpModeBronsonBasic extends OpMode {
+@Autonomous(name = "Autonomous 2", group = "Autonomous",preselectTeleOp = "Robot Centric")
+public class Autonomous2OpMode extends OpMode {
 
     private HardwareAndFunctions robot;
     private Launcher launcher;
@@ -111,10 +114,20 @@ public class AutonomousOpModeBronsonBasic extends OpMode {
                 break;
 
             case PARK:
-                robot.drive(-12,.8,.25);            // drive forward 3 inches with 80% power
-                robot.strafe( -24, 0.60,0.15);      // Strafe left 24 inches
+                /*
+
+                YOU NOW MOVED THE ROBOT TO THE OTHER SIDE OF THE FIELD ASSUMING YOUR ALLIANCE PARTNER
+                SCORED ALL 4 BALLS AND THE HIVE TIPPED
+
+                CHANGE THE CODE BELOW TO PARK AFTER SHOOTING
+
+                */
+
+
+                robot.drive(-12,.8,.25);            // drive backwards to leave the wall
+                robot.strafe( -24, 0.60,0.15);      // Strafe in the direction of our colors flower
                 robot.drive(-72,.8,.25);            // drive robot backwards towards parking spot
-                robot.strafe( -15, 0.60,0.15);      // Strafe left 10 inches
+                robot.strafe( -15, 0.60,0.15);      // Strafe into the parking spot
                 currentState = AutoState.DONE;
                 break;
 

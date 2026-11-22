@@ -16,8 +16,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *   <li>Drive and strafe movements</li>
  * </ul>
  */
-@Autonomous(name = "Kevin Test", group = "Autonomous",preselectTeleOp = "Robot Centric")
-public class AutonomousOpModeKevinBasic extends OpMode {
+@Autonomous(name = "Autonomous 1", group = "Autonomous",preselectTeleOp = "Robot Centric")
+public class Autonomous1OpMode extends OpMode {
 
     private HardwareAndFunctions robot;
     private Launcher launcher;
@@ -28,6 +28,8 @@ public class AutonomousOpModeKevinBasic extends OpMode {
     private final double WAIT_FOR_SPIN_UP_TIME = 1.5;
     private final int BALLS_TO_SHOOT = 6;
 
+    private final double WAIT_BETWEEN_SHOTS_TIME = 0.75;
+
     private enum AutoState {
         SPIN_UP_LAUNCHER,
         WAIT_FOR_SPIN_UP,
@@ -35,13 +37,9 @@ public class AutonomousOpModeKevinBasic extends OpMode {
         SHOOT_BALL,
         WAIT_BETWEEN_SHOTS,
         STOP_LAUNCHER,
-        DRIVE_FORWARD_1,
         DONE,
-        STRAFE_LEFT_2,
-        STRAFE_LEFT_3,
-        DRIVE_FORWARD_7_5
+        PARK,
     }
-
     private AutoState currentState = AutoState.SPIN_UP_LAUNCHER;
 
     @Override
@@ -101,49 +99,36 @@ public class AutonomousOpModeKevinBasic extends OpMode {
                 break;
 
             case WAIT_BETWEEN_SHOTS:
-                double currentVel = launcher.getVelocity();
-
-                // Safety timeout (max 2 seconds per shot recovery) so auto never gets stuck indefinitely
-                boolean timeoutReached = stateTimer.seconds() >= 2.0;
-
-                // Check if velocity has reached the target velocity (within 20 ticks/sec tolerance) or timeout
-                if (Math.abs(currentVel - Launcher.LAUNCHER_TARGET_VELOCITY) <= 20 || timeoutReached) {
+                if (stateTimer.seconds() >= WAIT_BETWEEN_SHOTS_TIME) {
                     currentState = AutoState.SHOOT_BALL;
-                } else {
-                    // Add or subtract velocity just before shooting to home in on target velocity
-                    double adjustedVel = launcher.launcherTargetVelocity;
-                    if (currentVel < Launcher.LAUNCHER_TARGET_VELOCITY) {
-                        adjustedVel += Launcher.LAUNCHER_STEP_UP_DOWN_VELOCITY;
-                    } else if (currentVel > Launcher.LAUNCHER_TARGET_VELOCITY) {
-                        adjustedVel -= Launcher.LAUNCHER_STEP_UP_DOWN_VELOCITY;
-                    }
-                    robot.setLauncherVelocity(adjustedVel);
                 }
                 break;
 
             case STOP_LAUNCHER:
                 robot.stopFeeder();
                 robot.stopLauncher();
-                currentState = AutoState.DRIVE_FORWARD_1;
+                currentState = AutoState.PARK;
                 break;
 
-            case DRIVE_FORWARD_1:
-                robot.drive(-12,.8,.25);  // drive forward 3 inches with 80% power
-                currentState = AutoState.STRAFE_LEFT_2;
-                break;
+            case PARK:
+                /*
+                TEAM YOU HAVE TWO OPTIONS TO CONSIDER FOR FIXING THIS CODE
 
-            case STRAFE_LEFT_2:
-                robot.strafe( -24, 0.60,0.15); // Strafe left 10 inches
-                currentState = AutoState.DRIVE_FORWARD_7_5;
-                break;
+                OPTION 1.
+                    DRIVE ROBOT IN THE FORWARD DIRECTION 2 INCHES TO FORCE ROBOT STRAIGHT
+                    THEN CONTINUE WITH THE REST OF THE CODE YOU HAVE
 
-            case DRIVE_FORWARD_7_5:
-                robot.drive(-72,.8,.25);  // drive forward 3 inches with 80% power
-                currentState = AutoState.STRAFE_LEFT_3;
-                break;
+                OPTION 2.
+                    STRAFE TO THE LEFT THE SAME 24
+                    USE THE robot.TurnTo COMMAND TO TURN THE ROBOT 15 DEGREES THE DRIVE STRAIGHT
+                    TOWARDS THE PARKING SPOT AND ELIMINATE THE LAST STRAFE
+                */
 
-            case STRAFE_LEFT_3:
-                robot.strafe( -15, 0.60,0.15); // Strafe left 10 inches
+
+                robot.drive(-12,.8,.25);            // drive backwards to leave the wall
+                robot.strafe( -24, 0.60,0.15);      // Strafe in the direction of our colors flower
+                robot.drive(-72,.8,.25);            // drive robot backwards towards parking spot
+                robot.strafe( -15, 0.60,0.15);      // Strafe into the parking spot
                 currentState = AutoState.DONE;
                 break;
 
