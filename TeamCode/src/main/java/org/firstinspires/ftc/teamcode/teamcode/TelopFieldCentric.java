@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * Inherits all operator controls, subsystems, and telemetry from TeleOp,
  * and overrides drive execution for Field-Centric driving.
  */
-//@Disabled
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Field Centric", group = "Iterative Opmode")
 public class TelopFieldCentric extends TeleOp {
 

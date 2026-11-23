@@ -25,10 +25,10 @@ public class Autonomous1OpMode extends OpMode {
     private final ElapsedTime holdTimer = new ElapsedTime();
     private int ballsShot = 0;
 
-    private final double WAIT_FOR_SPIN_UP_TIME = 1.5;
+    private final double WAIT_FOR_SPIN_UP_TIME = 2;
     private final int BALLS_TO_SHOOT = 6;
 
-    private final double WAIT_BETWEEN_SHOTS_TIME = 0.75;
+    private final double WAIT_BETWEEN_SHOTS_TIME = 1;
 
     private enum AutoState {
         SPIN_UP_LAUNCHER,
@@ -133,10 +133,12 @@ public class Autonomous1OpMode extends OpMode {
                 */
 
 
-                robot.drive(-12,.8,.25);            // drive backwards to leave the wall
+                         // drive backwards to leave the wall
                 robot.strafe( -24, 0.60,0.15);      // Strafe in the direction of our colors flower
-                robot.drive(-72,.8,.25);            // drive robot backwards towards parking spot
-                robot.strafe( -15, 0.60,0.15);      // Strafe into the parking spot
+                robot.turnTo( 17, 0.60, 0.15);
+                robot.drive(-81,.8,.25);
+                // drive robot backwards towards parking spot
+                      // Strafe into the parking spot
                 currentState = AutoState.DONE;
                 break;
 

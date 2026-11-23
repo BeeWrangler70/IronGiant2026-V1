@@ -63,7 +63,7 @@ public class Autonomous3OpMode extends OpMode {
         stateTimer.reset();
         holdTimer.reset();
         ballsShot = 0;
-        currentState = AutoState.SPIN_UP_LAUNCHER;
+        currentState = AutoState.PARK;
     }
 
     @Override
@@ -125,10 +125,8 @@ public class Autonomous3OpMode extends OpMode {
                 */
 
 
-                robot.drive(-12,.8,.25);            // drive backwards to leave the wall
-                robot.strafe( -24, 0.60,0.15);      // Strafe in the direction of our colors flower
-                robot.drive(-72,.8,.25);            // drive robot backwards towards parking spot
-                robot.strafe( -15, 0.60,0.15);      // Strafe into the parking spot
+                robot.drive(3,.8,.25);            // drive backwards to leave the wall
+
                 currentState = AutoState.DONE;
                 break;
 
