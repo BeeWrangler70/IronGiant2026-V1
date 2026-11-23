@@ -178,9 +178,6 @@ public class HardwareAndFunctions {
         // zero out all the odometry readings.
         resetOdometry();
 
-        // reset the yaw each time, this makes sure robot doesn't go off in a wonky direction if you don't power off between runs
-        imu.resetYaw();
-
         // Set the desired telemetry state
         this.showTelemetry = showTelemetry;
     }

@@ -54,6 +54,8 @@ public class Autonomous2OpMode extends OpMode {
         robot.initialize(true);
         launcher = robot.launcherSubsystem;
 
+        robot.odo.recalibrateIMU();  //Only call this for Autonomous one time
+
         telemetry.addData("Status", "Ready! Waiting for Start.");
         telemetry.update();
     }
@@ -114,7 +116,7 @@ public class Autonomous2OpMode extends OpMode {
                 break;
 
             case PARK:
-                /*
+                /**
 
                 YOU NOW MOVED THE ROBOT TO THE OTHER SIDE OF THE FIELD ASSUMING YOUR ALLIANCE PARTNER
                 SCORED ALL 4 BALLS AND THE HIVE TIPPED

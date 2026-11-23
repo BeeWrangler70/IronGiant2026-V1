@@ -51,6 +51,8 @@ public class Autonomous3OpMode extends OpMode {
         robot.initialize(true);
         launcher = robot.launcherSubsystem;
 
+        robot.odo.recalibrateIMU();  //Only call this for Autonomous one time
+
         telemetry.addData("Status", "Ready! Waiting for Start.");
         telemetry.update();
     }
@@ -111,7 +113,7 @@ public class Autonomous3OpMode extends OpMode {
                 break;
 
             case PARK:
-                /*
+                /**
 
                 OUR PARTNER IS AMAZING SO ALL WE NEED TO DO IS PARK
 

@@ -51,6 +51,8 @@ public class Autonomous1OpMode extends OpMode {
         robot.initialize(true);
         launcher = robot.launcherSubsystem;
 
+        robot.odo.recalibrateIMU();  //Only call this for Autonomous one time
+
         telemetry.addData("Status", "Ready! Waiting for Start.");
         telemetry.update();
     }
@@ -111,12 +113,17 @@ public class Autonomous1OpMode extends OpMode {
                 break;
 
             case PARK:
-                /*
+                /**
+
                 TEAM YOU HAVE TWO OPTIONS TO CONSIDER FOR FIXING THIS CODE
 
                 OPTION 1.
                     DRIVE ROBOT IN THE FORWARD DIRECTION 2 INCHES TO FORCE ROBOT STRAIGHT
                     THEN CONTINUE WITH THE REST OF THE CODE YOU HAVE
+
+                    THIS MAY NOT WORK THOUGH.  THE ROBOT IS EXPECTING TO DRIVE THAT DISTANCE
+                    TO A SPECIFIC TARGET.  SO IT MAY JUST KEEP TRYING TO DRIVE THROUGH THE WALL.
+                    IF THIS HAPPENS THE LOOK AT OPTION 2
 
                 OPTION 2.
                     STRAFE TO THE LEFT THE SAME 24
