@@ -51,6 +51,7 @@ public class Autonomous3OpMode extends OpMode {
         robot.initialize(true);
         launcher = robot.launcherSubsystem;
 
+        robot.imu.resetYaw();
         robot.odo.recalibrateIMU();  //Only call this for Autonomous one time
 
         telemetry.addData("Status", "Ready! Waiting for Start.");
